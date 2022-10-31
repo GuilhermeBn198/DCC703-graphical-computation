@@ -6,8 +6,8 @@ const {
 } = require("@nodegui/nodegui");
 
 const tam_wind = {
-	wid: 1280,
-	hei: 720
+	wid: 720,
+	hei: 560
 }
 //window setup
 const win = new QMainWindow();
@@ -46,31 +46,39 @@ layout.addWidget(janela3);
 
 win.setStyleSheet(
 	`
-	  #rootview {
-		background-color: #009688;
+	  *{
+		  margin: 10px;
+		  align-content: space-between;
+		  justify-content: space-between;
+		  border: 3px solid #a21
+     	  border-radius: 3px;
+
+		}
+		#rootview {
+		background-color: #1E1E1E;
 		display: flex;
-		align-content: stretch;
-		align-items: stretch;
-		justify-content: space-between;
 		flex-direction: row;	
 		flex-wrap: wrap;
+		margin: 0px;
+		border: 0px;
 	  }
 	  #janela {
 		background-color: #D9D9D9;
-		width: 1246px;
-		height: 93px;
-		flex-grow: 1;
-		padding: 10em;
+		width: 688px;
+		height: 92px;
+		margin: 0px auto;
 	  }
 	  #janela2 {
-		background-color: #3f3;
-		width: 610px;
-		height: 582px;
+		background-color: #D9D9D9;
+		width: 326px;
+		height: 426px;
+
       }
 	  #janela3 {
-		background-color: #79f;
-		width: 610px;
-		height: 582px;
+		background-color: #D9D9D9;
+		width: 326px;
+		height: 426px;
+
 	  }
 	`
   );
