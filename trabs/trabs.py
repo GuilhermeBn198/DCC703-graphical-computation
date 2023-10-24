@@ -10,7 +10,7 @@ class Point:
         self.value = value
 
 class Plane:
-    def __init__(self, size=80):
+    def __init__(self, size=50):
         self.size = size
         self.plane = np.empty((size, size), dtype=Point)
         for i in range(size):
@@ -49,7 +49,7 @@ def switch_case_menu():
     plane = Plane()
     p1 = Point(0, 0, 0)
     p2 = Point(0, 0, 0)
-    pcirclecenter = Point(40, 40, 0)
+    pcirclecenter = Point(25, 25, 0)
 
     while True:
         print("Menu:")
