@@ -16,7 +16,7 @@ def flood_fill(plane, x, y, replacement_color):
 
             # Display the updated plane
             os.system('cls' if os.name == 'nt' else 'clear')
-            plane.print("Progress:")
+            plane.animated_print("")
             
             # Recursively call flood_fill on neighboring pixels
             _flood_fill_recursive(x + 1, y)  # Right

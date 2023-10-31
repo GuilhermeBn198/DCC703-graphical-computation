@@ -46,6 +46,7 @@ class Plane:
             self.plane[self.size - y - 1][x].value = "\033[91mX\033[39m"
 
 
+
 def switch_case_menu():
     plane = Plane()
     p1 = Point(0, 0, 0)
