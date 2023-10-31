@@ -1,6 +1,7 @@
 import numpy as np
 from line_algorithms import analytic, dda, bresenham_line
 from circle_algorithms import parametric, bresenham_circle, symmetrical_increment
+from fill_algorithms import flood_fill
 
 class Point:
     def __init__(self, x, y, z, value="\033[90mO\033[39m"):
@@ -59,6 +60,7 @@ def switch_case_menu():
         print("4. Parametric Circle Algorithm")
         print("5. Symmetrical Increment Circle Algorithm")
         print("6. Bresenham Circle Algorithm")
+        print("7. Flood Fill Algorithm")
         print("0. Exit")
 
         choice = input("Enter your choice: ")
@@ -96,6 +98,11 @@ def switch_case_menu():
         elif choice == "6":
             pcircle = input("Enter the radius of the circle: ")
             bresenham_circle(plane, pcirclecenter, int(pcircle))
+        elif choice == "7":
+            pcircle = input("Enter the radius of the circle: ")
+            bresenham_circle(plane, pcirclecenter, int(pcircle))
+            replacement_color = input("Enter the replacement color (e.g., '\033[91mX\033[39m'): ")
+            flood_fill(plane, pcirclecenter.x, pcirclecenter.y, replacement_color)
         elif choice == "0":
             break
         else:
