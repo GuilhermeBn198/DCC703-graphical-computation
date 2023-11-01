@@ -42,7 +42,7 @@ def bresenham_circle(plane, p1, r):
 
     x = 0
     y = r
-    pp = 3 - 2 * r
+    pp = 1 - r
 
     # Switch eight pixels symmetrically around the circle
     plane.switch_pixel(p1.x + x, p1.y + y)
@@ -58,9 +58,9 @@ def bresenham_circle(plane, p1, r):
 
         if pp > 0:
             y -= 1
-            pp = pp + 4 * (x - y) + 10
+            pp = pp + 2 * (x - y) + 5
         else:
-            pp = pp + 4 * x + 6
+            pp = pp + 2 * x + 3
 
         x += 1
         # Switch eight pixels symmetrically around the circle
