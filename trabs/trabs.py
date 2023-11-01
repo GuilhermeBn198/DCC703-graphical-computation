@@ -76,6 +76,7 @@ def switch_case_menu():
             p2 = Point(p2.x, p2.y, 0)
             analytic(plane, p1, p2)
             plane.print("Algoritmo: Método Analítico")
+            plane.clear()
         elif choice == "2":
             p1.x = int(input("Enter the x-coordinate of point 1: "))
             p1.y = int(input("Enter the y-coordinate of point 1: "))
@@ -85,6 +86,7 @@ def switch_case_menu():
             p2 = Point(p2.x, p2.y, 0)
             dda(plane, p1, p2)
             plane.print("Algoritmo: DDA")
+            plane.clear()
         elif choice == "3":
             p1.x = int(input("Enter the x-coordinate of point 1: "))
             p1.y = int(input("Enter the y-coordinate of point 1: "))
@@ -94,18 +96,22 @@ def switch_case_menu():
             p2 = Point(p2.x, p2.y, 0)
             bresenham_line(plane, p1, p2)
             plane.print("Algoritmo: Bresenham")
+            plane.clear()
         elif choice == "4":
             pcircle = input("Enter the radius of the circle: ")
             parametric(plane, pcirclecenter, int(pcircle))
             plane.print("Algoritmo: Equação Paramétrica")
+            plane.clear()
         elif choice == "5":
             pcircle = input("Enter the radius of the circle: ")
             symmetrical_increment(plane, pcirclecenter, int(pcircle))
             plane.print("Algoritmo: Incremental com Simetria")
+            plane.clear()
         elif choice == "6":
             pcircle = input("Enter the radius of the circle: ")
             bresenham_circle(plane, pcirclecenter, int(pcircle))
             plane.print("Algoritmo: Bresenham")
+            plane.clear()
         elif choice == "7":
             replacement_color = input("Enter the replacement letter (e.g., x, =, ., a, b): ")
             
