@@ -78,7 +78,7 @@ def bresenham_circle(plane, p1, r):
     plane.print("Algoritmo: Bresenham")
 
 def casteljau(points, plane):
-    casteljauRecursive(points, 12, plane)
+    casteljauRecursive(points, 3, plane)
 
 def casteljauRecursive(points, deep, plane):
     if deep <= 0:
@@ -93,7 +93,7 @@ def casteljauRecursive(points, deep, plane):
     m.append(Point((m[3].x + m[4].x)/2, (m[3].y + m[4].y)/2, 0))
 
     plane.switch_pixel(int(m[5].x + 0.5), int(m[5].y + 0.5))
-
+    
     casteljauRecursive([points[0], m[0], m[3], m[5]], deep - 1, plane)
     casteljauRecursive([m[5], m[4], m[2], points[3]], deep - 1, plane)
 
