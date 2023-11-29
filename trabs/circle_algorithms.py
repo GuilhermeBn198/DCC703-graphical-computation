@@ -1,5 +1,7 @@
 import math
 from point import Point
+import numpy as np
+
 def parametric(plane, p1, r):
     plane.clear()
 
@@ -95,9 +97,10 @@ def casteljauRecursive(points, deep, plane):
     casteljauRecursive([points[0], m[0], m[3], m[5]], deep - 1, plane)
     casteljauRecursive([m[5], m[4], m[2], points[3]], deep - 1, plane)
 
-def bezier_curve_parametric(points, plane):
+def bezier_curve_parametric(plane, points):
     increment = 0.0005
-    for t in range(0, 1, increment):
+    for t in np.arange(0, 1, increment):
         x = (1 - t)**3 * points[0].x + 3 * t * (1 - t)**2 * points[1].x + 3 * t**2 * (1 - t) * points[2].x + t**3 * points[3].x
         y = (1 - t)**3 * points[0].y + 3 * t * (1 - t)**2 * points[1].y + 3 * t**2 * (1 - t) * points[2].y + t**3 * points[3].y
         plane.switch_pixel(int(x + 0.5), int(y + 0.5))
+        

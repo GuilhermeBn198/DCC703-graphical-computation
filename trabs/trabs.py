@@ -6,7 +6,7 @@ from point import Point
 
 
 class Plane:
-    def __init__(self, size=70):
+    def __init__(self, size=80):
         self.size = size
         self.plane = np.empty((size, size), dtype=Point)
         for i in range(size):
@@ -20,7 +20,7 @@ class Plane:
     def clear(self):
         for i in range(self.size):
             for j in range(self.size):
-                self.plane[i][j].value = "\033[90mO\033[39m"
+                self.plane[i][j].value = "\033[97mO\033[97m"
 
     def print(self, name=""):
         if name:
@@ -202,6 +202,7 @@ def switch_case_menu():
                 x = int(input(f"Enter the x-coordinate of point {i+1}: "))
                 y = int(input(f"Enter the y-coordinate of point {i+1}: "))
                 control_points.append(Point(x, y, 0))
+                plane.switch_pixel_color(x, y, "X")
             bezier_curve_parametric(plane, control_points)
             plane.print("Algoritmo: Curva de Bézier Paramétrica")
             plane.clear()
