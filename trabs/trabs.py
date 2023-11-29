@@ -1,12 +1,12 @@
 import numpy as np
 from line_algorithms import analytic, dda, bresenham_line, bresenham_lineRemember
-from circle_algorithms import parametric, bresenham_circle, symmetrical_increment, bezier_curve_casteljau
+from circle_algorithms import parametric, bresenham_circle, symmetrical_increment, bezier_curve_parametric, casteljau
 from fill_algorithms import flood_fill
 from point import Point
 
 
 class Plane:
-    def __init__(self, size=50):
+    def __init__(self, size=70):
         self.size = size
         self.plane = np.empty((size, size), dtype=Point)
         for i in range(size):
@@ -42,7 +42,7 @@ class Plane:
 
     def switch_pixel(self, x, y):
         if 0 <= self.size - y - 1 < self.size and 0 <= x < self.size:
-            self.plane[self.size - y - 1][x].value = "\033[91mX\033[39m"
+            self.plane[self.size - y - 1][x].value = "\033[92mX\033[92m"
 
 
 
@@ -50,7 +50,7 @@ def switch_case_menu():
     plane = Plane()
     p1 = Point(0, 0, 0)
     p2 = Point(0, 0, 0)
-    pcirclecenter = Point(25, 25, 0)
+    pcirclecenter = Point(35, 35, 0)
     pcirclecenter2 = Point(20, 10, 0)
 
     while True:
@@ -63,6 +63,7 @@ def switch_case_menu():
         print("6. Bresenham Circle Algorithm")
         print("7. Flood Fill Algorithm")
         print("8. Bezier Curve: Casteljau Curve Algorithm")
+        print("9. Bezier Curve: Parametric Curve Algorithm")
         print("0. Exit")
 
         choice = input("Enter your choice: ")
@@ -189,8 +190,20 @@ def switch_case_menu():
                 x = int(input(f"Enter the x-coordinate of point {i+1}: "))
                 y = int(input(f"Enter the y-coordinate of point {i+1}: "))
                 control_points.append(Point(x, y, 0))
-            bezier_curve_casteljau(plane, control_points)
+                plane.switch_pixel_color(x, y, "\033[97mX\033[97m")  # Change color of control points
+            casteljau(control_points, plane)
             plane.print("Algoritmo: Curva de Bézier com Algoritmo de Casteljau")
+            plane.clear()
+
+        elif choice == "9":
+            num_points = int(input("Enter the number of control points for the Bezier curve: "))
+            control_points = []
+            for i in range(num_points):
+                x = int(input(f"Enter the x-coordinate of point {i+1}: "))
+                y = int(input(f"Enter the y-coordinate of point {i+1}: "))
+                control_points.append(Point(x, y, 0))
+            bezier_curve_parametric(plane, control_points)
+            plane.print("Algoritmo: Curva de Bézier Paramétrica")
             plane.clear()
             
         elif choice == "0":

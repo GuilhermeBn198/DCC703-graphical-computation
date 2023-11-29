@@ -75,17 +75,29 @@ def bresenham_circle(plane, p1, r):
 
     plane.print("Algoritmo: Bresenham")
 
-def bezier_curve_casteljau(plane, control_points):
-    plane.clear()
-    for point in control_points:
-        plane.switch_pixel_color(int(point.x + 0.5), int(point.y + 0.5), "C")  # Control points
-    for t in [i*0.01 for i in range(101)]:  # Generate values from 0 to 1
-        temp_points = list(control_points)  # Copy the list of control points
-        while len(temp_points) > 1:
-            for i in range(len(temp_points) - 1):
-                temp_points[i] = interpolate(temp_points[i], temp_points[i + 1], t)
-            temp_points.pop()
-        plane.switch_pixel(int(temp_points[0].x + 0.5), int(temp_points[0].y + 0.5))  # Points on the curve
-        
-def interpolate(p1, p2, t):
-    return Point(p1.x * (1 - t) + p2.x * t, p1.y * (1 - t) + p2.y * t, 0)
+def casteljau(points, plane):
+    casteljauRecursive(points, 12, plane)
+
+def casteljauRecursive(points, deep, plane):
+    if deep <= 0:
+        return
+    m = [
+        Point((points[0].x + points[1].x)/2, (points[0].y + points[1].y)/2, 0),
+        Point((points[1].x + points[2].x)/2, (points[1].y + points[2].y)/2, 0),
+        Point((points[2].x + points[3].x)/2, (points[2].y + points[3].y)/2, 0)
+    ]
+    m.append(Point((m[0].x + m[1].x)/2, (m[0].y + m[1].y)/2, 0))
+    m.append(Point((m[1].x + m[2].x)/2, (m[1].y + m[2].y)/2, 0))
+    m.append(Point((m[3].x + m[4].x)/2, (m[3].y + m[4].y)/2, 0))
+
+    plane.switch_pixel(int(m[5].x + 0.5), int(m[5].y + 0.5))
+
+    casteljauRecursive([points[0], m[0], m[3], m[5]], deep - 1, plane)
+    casteljauRecursive([m[5], m[4], m[2], points[3]], deep - 1, plane)
+
+def bezier_curve_parametric(points, plane):
+    increment = 0.0005
+    for t in range(0, 1, increment):
+        x = (1 - t)**3 * points[0].x + 3 * t * (1 - t)**2 * points[1].x + 3 * t**2 * (1 - t) * points[2].x + t**3 * points[3].x
+        y = (1 - t)**3 * points[0].y + 3 * t * (1 - t)**2 * points[1].y + 3 * t**2 * (1 - t) * points[2].y + t**3 * points[3].y
+        plane.switch_pixel(int(x + 0.5), int(y + 0.5))
