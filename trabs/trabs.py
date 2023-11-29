@@ -1,14 +1,9 @@
 import numpy as np
 from line_algorithms import analytic, dda, bresenham_line, bresenham_lineRemember
-from circle_algorithms import parametric, bresenham_circle, symmetrical_increment
+from circle_algorithms import parametric, bresenham_circle, symmetrical_increment, bezier_curve_casteljau
 from fill_algorithms import flood_fill
+from point import Point
 
-class Point:
-    def __init__(self, x, y, z, value="\033[90mO\033[39m"):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.value = value
 
 class Plane:
     def __init__(self, size=50):
@@ -17,6 +12,10 @@ class Plane:
         for i in range(size):
             for j in range(size):
                 self.plane[i][j] = Point(i, j, 0)
+                
+    def switch_pixel_color(self, x, y, color):
+        if 0 <= self.size - y - 1 < self.size and 0 <= x < self.size:
+            self.plane[self.size - y - 1][x].value = color
 
     def clear(self):
         for i in range(self.size):
@@ -63,6 +62,7 @@ def switch_case_menu():
         print("5. Symmetrical Increment Circle Algorithm")
         print("6. Bresenham Circle Algorithm")
         print("7. Flood Fill Algorithm")
+        print("8. Bezier Curve: Casteljau Curve Algorithm")
         print("0. Exit")
 
         choice = input("Enter your choice: ")
@@ -181,6 +181,16 @@ def switch_case_menu():
             input()
             flood_fill(plane, pcirclecenter.x, pcirclecenter.y, replacement_color)
             flood_fill(plane, pcirclecenter2.x, pcirclecenter2.y, replacement_color)
+            plane.clear()
+        elif choice == "8":
+            num_points = int(input("Enter the number of control points for the Bezier curve: "))
+            control_points = []
+            for i in range(num_points):
+                x = int(input(f"Enter the x-coordinate of point {i+1}: "))
+                y = int(input(f"Enter the y-coordinate of point {i+1}: "))
+                control_points.append(Point(x, y, 0))
+            bezier_curve_casteljau(plane, control_points)
+            plane.print("Algoritmo: Curva de Bézier com Algoritmo de Casteljau")
             plane.clear()
             
         elif choice == "0":

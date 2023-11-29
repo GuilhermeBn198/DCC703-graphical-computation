@@ -1,5 +1,5 @@
 import math
-
+from point import Point
 def parametric(plane, p1, r):
     plane.clear()
 
@@ -74,3 +74,18 @@ def bresenham_circle(plane, p1, r):
         plane.switch_pixel(p1.x - y, p1.y - x)
 
     plane.print("Algoritmo: Bresenham")
+
+def bezier_curve_casteljau(plane, control_points):
+    plane.clear()
+    for point in control_points:
+        plane.switch_pixel_color(int(point.x + 0.5), int(point.y + 0.5), "C")  # Control points
+    for t in [i*0.01 for i in range(101)]:  # Generate values from 0 to 1
+        temp_points = list(control_points)  # Copy the list of control points
+        while len(temp_points) > 1:
+            for i in range(len(temp_points) - 1):
+                temp_points[i] = interpolate(temp_points[i], temp_points[i + 1], t)
+            temp_points.pop()
+        plane.switch_pixel(int(temp_points[0].x + 0.5), int(temp_points[0].y + 0.5))  # Points on the curve
+        
+def interpolate(p1, p2, t):
+    return Point(p1.x * (1 - t) + p2.x * t, p1.y * (1 - t) + p2.y * t, 0)
