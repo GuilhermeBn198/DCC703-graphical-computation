@@ -215,7 +215,7 @@ def switch_case_menu():
             for i in range(len(clipPolygon)):
                 point1 = clipPolygon[i]
                 point2 = clipPolygon[(i+1) % len(clipPolygon)]
-                bresenham_lineRemember_clip(plane, point1, point2)
+                bresenham_lineRemember(plane, point1, point2)
 
             # Predefined points for the subject polygons
             subjectPolygons = [
@@ -224,15 +224,14 @@ def switch_case_menu():
             ]
 
             for subjectPolygon in subjectPolygons:
+                clip(subjectPolygon, clipPolygon, plane)
                 for i in range(len(subjectPolygon)):
                     point1 = subjectPolygon[i]
                     point2 = subjectPolygon[(i+1) % len(subjectPolygon)]
                     bresenham_lineRemember(plane, point1, point2)
 
-                clip(subjectPolygon, clipPolygon, plane)
-
-                plane.print("Algoritmo: Sutherland-Hodgman Clip")
-                plane.clear()
+            plane.print("Algoritmo: Sutherland-Hodgman Clip Algorithm")
+            plane.clear()
                     
         elif choice == "0":
             break
