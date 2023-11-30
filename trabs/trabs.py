@@ -1,12 +1,13 @@
 import numpy as np
-from line_algorithms import analytic, dda, bresenham_line, bresenham_lineRemember
+from line_algorithms import analytic, dda, bresenham_line, bresenham_lineRemember, bresenham_lineRemember_clip
 from circle_algorithms import parametric, bresenham_circle, symmetrical_increment, bezier_curve_parametric, casteljau
 from fill_algorithms import flood_fill
+from clip_algorithms import clip
 from point import Point
 
 
 class Plane:
-    def __init__(self, size=80):
+    def __init__(self, size=90):
         self.size = size
         self.plane = np.empty((size, size), dtype=Point)
         for i in range(size):
@@ -64,6 +65,7 @@ def switch_case_menu():
         print("7. Flood Fill Algorithm")
         print("8. Bezier Curve: Casteljau Curve Algorithm")
         print("9. Bezier Curve: Parametric Curve Algorithm")
+        print("10. Sutherland-Hodgman Clip Algorithm")
         print("0. Exit")
 
         choice = input("Enter your choice: ")
@@ -206,7 +208,32 @@ def switch_case_menu():
             bezier_curve_parametric(plane, control_points)
             plane.print("Algoritmo: Curva de Bézier Paramétrica")
             plane.clear()
-            
+        
+        elif choice == "10":
+            # Predefined points for the clip polygon
+            clipPolygon = [Point(30, 30, 0), Point(30, 60, 0), Point(60, 60, 0), Point(60, 30, 0)]
+            for i in range(len(clipPolygon)):
+                point1 = clipPolygon[i]
+                point2 = clipPolygon[(i+1) % len(clipPolygon)]
+                bresenham_lineRemember_clip(plane, point1, point2)
+
+            # Predefined points for the subject polygons
+            subjectPolygons = [
+                [Point(35, 45, 0), Point(35, 80, 0), Point(55, 80, 0), Point(55, 45, 0), Point(50, 45, 0), Point(50, 65, 0), Point(40, 65, 0), Point(40, 45, 0)],
+                # Add more subject polygons here as needed
+            ]
+
+            for subjectPolygon in subjectPolygons:
+                for i in range(len(subjectPolygon)):
+                    point1 = subjectPolygon[i]
+                    point2 = subjectPolygon[(i+1) % len(subjectPolygon)]
+                    bresenham_lineRemember(plane, point1, point2)
+
+                clip(subjectPolygon, clipPolygon, plane)
+
+                plane.print("Algoritmo: Sutherland-Hodgman Clip")
+                plane.clear()
+                    
         elif choice == "0":
             break
         else:

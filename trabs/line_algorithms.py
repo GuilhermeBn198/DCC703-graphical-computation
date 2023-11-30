@@ -102,17 +102,24 @@ def bresenham_line(plane, p1, p2):
             slope += dx
             y += sy
 
+        if x > p2.x or y > p2.y:
+            break
+
     # plane.print("Algoritmo: Bresenham")
 
 def bresenham_lineRemember(plane, p1, p2):
     dx = abs(p2.x - p1.x)
     dy = abs(p2.y - p1.y) * -1
     sy = 1 if p1.y < p2.y else -1
+    if p1.x < p2.x:
+        sx = 1
+    else:
+        sx = -1
     slope = dx + dy
     x, y = p1.x, p1.y
 
     while True:
-        plane.switch_pixel(x, y)
+        plane.switch_pixel_color(x, y, "\033[92mX\033[92m")
 
         if x == p2.x and y == p2.y:
             break
@@ -123,7 +130,40 @@ def bresenham_lineRemember(plane, p1, p2):
             if x == p2.x:
                 break
             slope += dy
-            x += 1
+            x += sx
+
+        if eslope <= dx:
+            if y == p2.y:
+                break
+            slope += dx
+            y += sy
+
+    # plane.print("Algoritmo: Bresenham")
+    
+def bresenham_lineRemember_clip(plane, p1, p2):
+    dx = abs(p2.x - p1.x)
+    dy = abs(p2.y - p1.y) * -1
+    sy = 1 if p1.y < p2.y else -1
+    if p1.x < p2.x:
+        sx = 1
+    else:
+        sx = -1
+    slope = dx + dy
+    x, y = p1.x, p1.y
+
+    while True:
+        plane.switch_pixel_color(x, y, "\033[93mX\033[93m")
+
+        if x == p2.x and y == p2.y:
+            break
+
+        eslope = 2 * slope
+
+        if eslope >= dy:
+            if x == p2.x:
+                break
+            slope += dy
+            x += sx
 
         if eslope <= dx:
             if y == p2.y:
