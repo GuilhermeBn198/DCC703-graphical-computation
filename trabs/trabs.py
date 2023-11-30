@@ -80,6 +80,8 @@ def switch_case_menu():
             analytic(plane, p1, p2)
             plane.print("Algoritmo: Método Analítico")
             plane.clear()
+ #######################################################################################################           
+            
         elif choice == "2":
             p1.x = int(input("Enter the x-coordinate of point 1: "))
             p1.y = int(input("Enter the y-coordinate of point 1: "))
@@ -90,6 +92,8 @@ def switch_case_menu():
             dda(plane, p1, p2)
             plane.print("Algoritmo: DDA")
             plane.clear()
+#######################################################################################################
+            
         elif choice == "3":
             p1.x = int(input("Enter the x-coordinate of point 1: "))
             p1.y = int(input("Enter the y-coordinate of point 1: "))
@@ -100,21 +104,29 @@ def switch_case_menu():
             bresenham_line(plane, p1, p2)
             plane.print("Algoritmo: Bresenham")
             plane.clear()
+#######################################################################################################
+            
         elif choice == "4":
             pcircle = input("Enter the radius of the circle: ")
             parametric(plane, pcirclecenter, int(pcircle))
             plane.print("Algoritmo: Equação Paramétrica")
             plane.clear()
+#######################################################################################################
+            
         elif choice == "5":
             pcircle = input("Enter the radius of the circle: ")
             symmetrical_increment(plane, pcirclecenter, int(pcircle))
             plane.print("Algoritmo: Incremental com Simetria")
             plane.clear()
+#######################################################################################################
+            
         elif choice == "6":
             pcircle = input("Enter the radius of the circle: ")
             bresenham_circle(plane, pcirclecenter, int(pcircle))
             plane.print("Algoritmo: Bresenham")
             plane.clear()
+#######################################################################################################
+            
         elif choice == "7":
             replacement_color = input("Enter the replacement letter (e.g., x, =, ., a, b): ")
             
@@ -185,20 +197,23 @@ def switch_case_menu():
             flood_fill(plane, pcirclecenter.x, pcirclecenter.y, replacement_color)
             flood_fill(plane, pcirclecenter2.x, pcirclecenter2.y, replacement_color)
             plane.clear()
+#######################################################################################################
+            
         elif choice == "8":
-            num_points = int(input("Enter the number of control points for the Bezier curve: "))
+            num_points = int(input("Enter the number of control points for the Bezier curve(the number needs to be <3): "))
             control_points = []
             for i in range(num_points):
                 x = int(input(f"Enter the x-coordinate of point {i+1}: "))
                 y = int(input(f"Enter the y-coordinate of point {i+1}: "))
                 control_points.append(Point(x, y, 0))
-                plane.switch_pixel_color(x, y, "\033[97mX\033[97m")  # Change color of control points
+                plane.switch_pixel_color(x, y, "\033[93mX\033[93m")  # Change color of control points
             casteljau(control_points, plane)
             plane.print("Algoritmo: Curva de Bézier com Algoritmo de Casteljau")
             plane.clear()
+#######################################################################################################
 
         elif choice == "9":
-            num_points = int(input("Enter the number of control points for the Bezier curve: "))
+            num_points = int(input("Enter the number of control points for the Bezier curve(the number needs to be <3): "))
             control_points = []
             for i in range(num_points):
                 x = int(input(f"Enter the x-coordinate of point {i+1}: "))
@@ -208,6 +223,7 @@ def switch_case_menu():
             bezier_curve_parametric(plane, control_points)
             plane.print("Algoritmo: Curva de Bézier Paramétrica")
             plane.clear()
+#######################################################################################################
         
         elif choice == "10":
             # Predefined points for the clip polygon
@@ -232,6 +248,7 @@ def switch_case_menu():
 
             plane.print("Algoritmo: Sutherland-Hodgman Clip Algorithm")
             plane.clear()
+#######################################################################################################
                     
         elif choice == "0":
             break
