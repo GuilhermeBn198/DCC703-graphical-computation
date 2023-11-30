@@ -200,6 +200,7 @@ def switch_case_menu():
 #######################################################################################################
             
         elif choice == "8":
+            plane.clear()
             num_points = int(input("Enter the number of control points for the Bezier curve(the number needs to be <3): "))
             control_points = []
             for i in range(num_points):
@@ -213,38 +214,34 @@ def switch_case_menu():
 #######################################################################################################
 
         elif choice == "9":
+            plane.clear()
             num_points = int(input("Enter the number of control points for the Bezier curve(the number needs to be <3): "))
             control_points = []
             for i in range(num_points):
                 x = int(input(f"Enter the x-coordinate of point {i+1}: "))
                 y = int(input(f"Enter the y-coordinate of point {i+1}: "))
                 control_points.append(Point(x, y, 0))
-                plane.switch_pixel_color(x, y, "X")
+                plane.switch_pixel_color(x, y, "\033[93mX\033[93m")
             bezier_curve_parametric(plane, control_points)
             plane.print("Algoritmo: Curva de Bézier Paramétrica")
             plane.clear()
 #######################################################################################################
         
         elif choice == "10":
+            plane.clear()
             # Predefined points for the clip polygon
             clipPolygon = [Point(30, 30, 0), Point(30, 60, 0), Point(60, 60, 0), Point(60, 30, 0)]
-            for i in range(len(clipPolygon)):
-                point1 = clipPolygon[i]
-                point2 = clipPolygon[(i+1) % len(clipPolygon)]
-                bresenham_lineRemember(plane, point1, point2)
+
 
             # Predefined points for the subject polygons
             subjectPolygons = [
-                [Point(35, 45, 0), Point(35, 80, 0), Point(55, 80, 0), Point(55, 45, 0), Point(50, 45, 0), Point(50, 65, 0), Point(40, 65, 0), Point(40, 45, 0)],
+                [Point(35, 45, 0), Point(40, 45, 0), Point(40, 65, 0), Point(50, 65, 0), Point(50, 45, 0), Point(55, 45, 0), Point(55, 80, 0), Point(35, 80, 0)]
                 # Add more subject polygons here as needed
             ]
 
             for subjectPolygon in subjectPolygons:
                 clip(subjectPolygon, clipPolygon, plane)
-                for i in range(len(subjectPolygon)):
-                    point1 = subjectPolygon[i]
-                    point2 = subjectPolygon[(i+1) % len(subjectPolygon)]
-                    bresenham_lineRemember(plane, point1, point2)
+
 
             plane.print("Algoritmo: Sutherland-Hodgman Clip Algorithm")
             plane.clear()
