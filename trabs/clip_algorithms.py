@@ -22,12 +22,14 @@ def clip(subjectPolygon, clipPolygon, plane):
                     if not inside(s, cp1, cp2):
                         intersection = computeIntersection(cp1, cp2, s, e)
                         outputList.append(intersection)
-                        plane.switch_pixel_color(intersection.x, intersection.y, "\033[94mX\033[94m")  # Change color of intersection points
+                        plane.switch_pixel_color(intersection.x, intersection.y, "\033[94mX\033[94m")  
+                        
                     outputList.append(e)
                 elif inside(s, cp1, cp2):
                     intersection = computeIntersection(cp1, cp2, s, e)
                     outputList.append(intersection)
-                    plane.switch_pixel_color(intersection.x, intersection.y, "\033[94mX\033[94m")  # Change color of intersection points
+                    plane.switch_pixel_color(intersection.x, intersection.y, "\033[94mX\033[94m")  
+                    
                 s = e
         return outputList
 
